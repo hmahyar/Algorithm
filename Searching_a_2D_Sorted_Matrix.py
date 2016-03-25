@@ -6,5 +6,11 @@ def search(arr, key):
 	m= len(arr[0])
 	if key<arr[0][0] or key>arr[n-1][m-1]:
 		return 'Not Found'
-
+	while i>0 and j>m-1:
+		if arr[i][j]==key:
+			return (i,j)
+		elif arr[i][j]>key:
+			j+=1
+		else:
+			i+=1
 print search(a,32)
