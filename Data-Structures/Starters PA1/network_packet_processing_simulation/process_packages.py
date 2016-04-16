@@ -1,5 +1,5 @@
-# python3
-
+#python2
+from collections import deque
 class Request:
     def __init__(self, arrival_time, process_time):
         self.arrival_time = arrival_time
@@ -13,16 +13,36 @@ class Response:
 class Buffer:
     def __init__(self, size):
         self.size = size
-        self.finish_time_ = []
+        self.finish_time_ = deque()
 
     def Process(self, request):
-        # write your code here
-        return Response(False, -1)
+        # First remove all expired items from the list
+        # New items are added to the left, so we can Process
+        # the list from right to left and remove entries while
+        # iterating
+        for i in xrange(len(self.finish_time_) - 1, -1, -1):
+            if self.finish_time_[i] <= request.arrival_time:
+                del self.finish_time_[i]
+            else:
+                break
+
+        if len(self.finish_time_) == 0:
+            # Queue is empty, so this entry is process directly
+            self.finish_time_.appendleft(request.arrival_time + request.process_time)
+            return Response(False, request.arrival_time)
+        else:
+            if len(self.finish_time_) < self.size:
+                finish_time_for_previous = self.finish_time_[0]
+                self.finish_time_.appendleft(finish_time_for_previous + request.process_time)
+                return Response(False, finish_time_for_previous)
+            else:
+                # Package will be dropped
+                return Response(True, -1)
 
 def ReadRequests(count):
     requests = []
     for i in range(count):
-        arrival_time, process_time = map(int, input().strip().split())
+        arrival_time, process_time = map(int, raw_input().strip().split())
         requests.append(Request(arrival_time, process_time))
     return requests
 
@@ -37,10 +57,11 @@ def PrintResponses(responses):
         print(response.start_time if not response.dropped else -1)
 
 if __name__ == "__main__":
-    size, count = map(int, input().strip().split())
+    size, count = map(int, raw_input().strip().split())
     requests = ReadRequests(count)
 
     buffer = Buffer(size)
     responses = ProcessRequests(requests, buffer)
 
     PrintResponses(responses)
+Status API Training Shop Blog About
