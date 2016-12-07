@@ -22,8 +22,9 @@ class Solution(object):
                nums[i],nums[p1] = nums[p1],nums[i]
                p1+=1
 
-alist = [1,0,0,2,3]
-Solution().moveZeroes(alist)
-print alist
+if __name__ == '__main__':           
+  alist = [1,0,0,2,3]
+  Solution().moveZeroes(alist)
+  print alist
                
    
