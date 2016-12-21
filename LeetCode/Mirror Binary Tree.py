@@ -17,5 +17,5 @@ def mirror(root):
 	mirror(root[2])
 	root[1],root[2] = root[2],root[1]
 
-mirrir(tree)
+mirror(tree)
 print(tree)
