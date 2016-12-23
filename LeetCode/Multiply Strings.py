@@ -7,6 +7,14 @@ The numbers can be arbitrarily large and are non-negative.
 Converting the input string to integer is NOT allowed.
 You should NOT use internal library such as BigInteger.
 
+ 99
+ 99
+ __
+ 48
+120
+___
+168
+
 '''
 
 class Solution(object):
@@ -16,15 +24,6 @@ class Solution(object):
         :type num2: str
         :rtype: str
         """
-        '''
-        99
-        99
-        __
-        48
-       120
-       ___
-       168
-        '''
         result = [0 for _ in xrange(len(num1)+len(num2))]
         num1 , num2 = num1[::-1],num2[::-1]
         for i in xrange(len(num1)):
