@@ -34,9 +34,8 @@ class Solution():
                 if p[j-1] != '*':
                     result[i][j] = result[i-1][j-1] and (s[i-1] == p[j-1] or p[j-1] == '.')
                 else:
-                    result[i][j] = result[i][j-2] or (result[i-1][j] and (s[i-1] == p[j-2] or p[j-2] == '.'))
-        for i in result:
-                    print i           
+                    result[i][j] = result[i][j-1] or result[i-1][j]
+         
         return result[len(s)][len(p)]
 
 
