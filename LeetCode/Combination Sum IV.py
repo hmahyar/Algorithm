@@ -45,5 +45,11 @@ class Solution(object):
         
         for i in xrange(1,target+1):
             for j in xrange(len(nums)):
-                if nums[j]<=i: history[i]+=history[i-nums[j]]
+                if nums[j]<=i and i-nums[j]>=0:
+                    history[i]+=history[i-nums[j]]
+                else:
+                    break
         return history[-1]
+
+
+print Solution().combinationSum4([1,-1, 2, 3],4)
