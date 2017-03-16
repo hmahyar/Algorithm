@@ -26,8 +26,6 @@ You may assume k is always valid, ie: 1 <= k <= input array's size for non-empty
 Follow up:
 Could you solve it in linear time?
 '''
-from collections import deque
-
 class Solution(object):
     def maxSlidingWindow(self, nums, k):
         """
@@ -35,16 +33,13 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        dq = deque()
-        max_numbers = []
-
-        for i in xrange(len(nums)):
-            while dq and nums[i] >= nums[dq[-1]]:
-                dq.pop()
-            dq.append(i)
-            if i >= k and dq and dq[0] <= i - k:
-                dq.popleft()
-            if i >= k - 1:
-                max_numbers.append(nums[dq[0]])
-
-        return max_numbers
+        Q,result = [],[]
+        for i, n in enumerate(nums):
+            while Q and nums[Q[-1]]<n:
+                Q.pop()
+            Q.append(i)
+            if Q[0] == i-k:
+                Q.pop(0)
+            if i >= k-1:
+                result+=nums[Q[0]],
+        return result
